@@ -54,7 +54,6 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     private void inOrder(Node<T> subroot) {
         if (subroot.getLChild() != null)
             inOrder(subroot.getLChild());
-        //System.out.print(subroot.getData());
         list.add(subroot.getData());
         if (subroot.getRChild() != null)
             inOrder(subroot.getRChild());
@@ -86,5 +85,36 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         if (subroot.getRChild() != null)
             postOrder(subroot.getRChild());
         list.add(subroot.getData());
+    }
+
+    int find(T data) {
+        return recursiveFind(root, data, 0);
+    }
+
+    private int recursiveFind(Node<T> subroot, T data, int depth) {
+        if (subroot == null) { return -1; }  // made it to bottom without finding element
+        int comparison = data.compareTo(subroot.getData());
+        if (comparison < 0) { return recursiveFind(subroot.getLChild(), data, depth + 1); }
+        else if (comparison > 0) { return recursiveFind(subroot.getRChild(), data, depth + 1); }
+        else { return depth; }
+    }
+
+    T getMinimum() {
+        return recursiveMinimum(root); }  // may return null (on empty bst)
+
+    private T recursiveMinimum(Node<T> subroot) {
+        if (subroot == null) { return null; }
+        else if (subroot.getLChild() != null) { return recursiveMinimum(subroot.getLChild()); }
+        else { return subroot.getData(); }
+    }
+
+    T getMaximum() {
+        return recursiveMaximum(root);  // may return null (on empty bst)
+    }
+
+    private T recursiveMaximum(Node<T> subroot) {
+        if (subroot == null) { return null; }
+        else if (subroot.getRChild() != null) { return recursiveMaximum(subroot.getRChild()); }
+        else { return subroot.getData(); }
     }
 }
