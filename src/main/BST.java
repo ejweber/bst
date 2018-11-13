@@ -99,6 +99,18 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         else { return depth; }
     }
 
+    private Node<T> findNode(T data) {
+        return recursiveFindNode(root, data);
+    }
+
+    private Node<T> recursiveFindNode(Node<T> subroot, T data) {
+        if (subroot == null) { return null; }  // made it to bottom without finding element
+        int comparison = data.compareTo(subroot.getData());
+        if (comparison < 0) { return recursiveFindNode(subroot.getLChild(), data); }
+        else if (comparison > 0) { return recursiveFindNode(subroot.getRChild(), data); }
+        else { return subroot; }
+    }
+
     T getMinimum() {
         return recursiveMinimum(root); }  // may return null (on empty bst)
 
@@ -116,5 +128,40 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         if (subroot == null) { return null; }
         else if (subroot.getRChild() != null) { return recursiveMaximum(subroot.getRChild()); }
         else { return subroot.getData(); }
+    }
+
+    T getSuccessor(T data) {
+        Node<T> trail = findNode(data);
+        if (trail == null) { return null; }
+        if (trail.getRChild() != null)
+            // successor is minimum node in subtree rooted at trail's right child
+            return recursiveMinimum(trail.getRChild());
+        else {
+            Node<T> lead = trail.getParent();
+            while (lead != null && trail == lead.getRChild()) {  // look for an ancestor whose left child is an ancestor
+                trail = lead;
+                lead = lead.getParent();
+            }
+            if (lead != null) { return lead.getData(); }
+            else { return null; }
+        }
+    }
+
+    T getPredecessor(T data) {
+        Node<T> trail = findNode(data);
+        if (trail == null) { return null; }
+        if (trail.getLChild() != null)
+            // successor is maximum node in subtree rooted at trail's left child
+            return recursiveMaximum(trail.getLChild());
+        else {
+            Node<T> lead = trail.getParent();
+            // look for an ancestor whose right child is an ancestor
+            while (lead != null && trail == lead.getLChild()) {
+                trail = lead;
+                lead = lead.getParent();
+            }
+            if (lead != null) { return lead.getData(); }
+            else { return null; }
+        }
     }
 }
