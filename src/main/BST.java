@@ -164,4 +164,15 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
             else { return null; }
         }
     }
+
+    private void transplant(Node<T> oldNode, Node<T> newNode) {
+        if (oldNode.getParent() == null)
+            root = newNode;  // oldNode was root of tree
+        else if (oldNode == oldNode.getParent().getLChild())
+            oldNode.getParent().setLChild(newNode);  // hook in newNode as left child
+        else
+            oldNode.getParent().setRChild(newNode);  // hook in newNode as right child
+        if (newNode != null)
+            newNode.setParent(oldNode.getParent());
+    }
 }
