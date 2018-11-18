@@ -112,22 +112,29 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     }
 
     T getMinimum() {
-        return recursiveMinimum(root); }  // may return null (on empty bst)
+        if (recursiveMinimum(root) != null)
+            return recursiveMinimum(root).getData();
+        else
+            return null;  // may return null on empty bst
+    }
 
-    private T recursiveMinimum(Node<T> subroot) {
+    private Node<T> recursiveMinimum(Node<T> subroot) {
         if (subroot == null) { return null; }
         else if (subroot.getLChild() != null) { return recursiveMinimum(subroot.getLChild()); }
-        else { return subroot.getData(); }
+        else { return subroot; }
     }
 
     T getMaximum() {
-        return recursiveMaximum(root);  // may return null (on empty bst)
+        if (recursiveMaximum(root) != null)
+            return recursiveMaximum(root).getData();
+        else
+            return null;  // may return null (on empty bst)
     }
 
-    private T recursiveMaximum(Node<T> subroot) {
+    private Node<T> recursiveMaximum(Node<T> subroot) {
         if (subroot == null) { return null; }
         else if (subroot.getRChild() != null) { return recursiveMaximum(subroot.getRChild()); }
-        else { return subroot.getData(); }
+        else { return subroot; }
     }
 
     T getSuccessor(T data) {
@@ -135,7 +142,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         if (trail == null) { return null; }
         if (trail.getRChild() != null)
             // successor is minimum node in subtree rooted at trail's right child
-            return recursiveMinimum(trail.getRChild());
+            return recursiveMinimum(trail.getRChild()).getData();
         else {
             Node<T> lead = trail.getParent();
             while (lead != null && trail == lead.getRChild()) {  // look for an ancestor whose left child is an ancestor
@@ -152,7 +159,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         if (trail == null) { return null; }
         if (trail.getLChild() != null)
             // successor is maximum node in subtree rooted at trail's left child
-            return recursiveMaximum(trail.getLChild());
+            return recursiveMaximum(trail.getLChild()).getData();
         else {
             Node<T> lead = trail.getParent();
             // look for an ancestor whose right child is an ancestor
@@ -165,6 +172,8 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         }
     }
 
+    // replace the subtree rooted at oldNode with the one rooted at newNode
+    // newNode is left completely unhooked from the tree
     private void transplant(Node<T> oldNode, Node<T> newNode) {
         if (oldNode.getParent() == null)
             root = newNode;  // oldNode was root of tree
@@ -174,5 +183,30 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
             oldNode.getParent().setRChild(newNode);  // hook in newNode as right child
         if (newNode != null)
             newNode.setParent(oldNode.getParent());
+    }
+
+    void delete(T data) {
+        Node<T> target = findNode(data);
+        if (target == null)
+            return;
+        // if target has no left child, its right child can simply replace it
+        if (target.getLChild() == null)
+            transplant(target, target.getRChild());
+        // if target has no right child, its left child can simply replace it
+        else if (target.getRChild() == null)
+            transplant(target, target.getLChild());
+        else {
+            Node<T> rightMin = recursiveMinimum(target.getRChild());
+            // safely pull out the minimum node in target's subtree
+            if (rightMin.getParent() != target) {
+                transplant(rightMin, rightMin.getRChild());
+                rightMin.setRChild(target.getRChild());
+                rightMin.getRChild().setParent(rightMin);
+            }
+            // safely replace the target with the minimum node in its subtree
+            transplant(target, rightMin);
+            rightMin.setLChild(target.getLChild());
+            rightMin.getLChild().setParent(rightMin);
+        }
     }
 }

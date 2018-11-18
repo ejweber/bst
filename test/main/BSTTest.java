@@ -3,6 +3,7 @@ package main;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.testng.Assert.*;
 
@@ -11,6 +12,8 @@ public class BSTTest {
     private final Integer[] inOrderInts = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     private final Integer[] preOrderInts = {5, 1, 0, 4, 2, 3, 9, 7, 6, 8};
     private final Integer[] postOrderInts = {0, 3, 2, 4, 1, 6, 8, 7, 9, 5};
+    private final Integer[] extendedUnorderedInts = {5, 1, 9, 4, 7, 2, 8, 6, 3, 0, 11, 10, 12};
+    private final Integer[] extendedInOrderInts = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
     @Test
     public void getInOrder() {
@@ -132,5 +135,42 @@ public class BSTTest {
         assertNull(bst.getPredecessor(0));
         assertNull(bst.getPredecessor(10));
         assertNull(emtpyBST.getPredecessor(5));
+    }
+
+    @Test
+    public void delete() {
+        BST<Integer> bst = new BST<Integer>();
+        for (Integer element: extendedUnorderedInts) { bst.insert(element); }
+        ArrayList<Integer> answer = new ArrayList<Integer>(Arrays.asList(extendedInOrderInts));
+        ArrayList<Integer> result;
+
+        // verify that deleting a non-existing node doesn't break anything
+        bst.delete(27);
+
+        bst.delete(9);
+        answer.remove(new Integer(9));
+        result = bst.getInOrder();
+        assertEquals(result, answer);
+
+        bst.delete(10);
+        answer.remove(new Integer(10));
+        result = bst.getInOrder();
+        assertEquals(result, answer);
+
+        bst.delete(2);
+        answer.remove(new Integer(2));
+        result = bst.getInOrder();
+        assertEquals(result, answer);
+
+        bst.delete(4);
+        answer.remove(new Integer(4));
+        result = bst.getInOrder();
+        assertEquals(result, answer);
+
+        // delete the rest of the nodes and attempt to find a maximum
+        for (Integer element : answer)
+            bst.delete(element);
+        assertNull(bst.getMaximum());
+
     }
 }
