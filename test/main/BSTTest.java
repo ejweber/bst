@@ -19,12 +19,14 @@ public class BSTTest {
     public void getInOrder() {
         ArrayList<Integer> resultArrayList;
         Integer[] resultArray;
+        BST<Integer> emtpyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
         for (Integer element : unorderedInts) { bst.insert(element); }
         resultArrayList = bst.getInOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
+        emtpyBST.getInOrder();  // ensure an empty tree doesn't break things
         assertEquals(inOrderInts, resultArray);
     }
 
@@ -32,12 +34,14 @@ public class BSTTest {
     public void getPreOrder() {
         ArrayList<Integer> resultArrayList;
         Integer[] resultArray;
+        BST<Integer> emptyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
         for (Integer element : unorderedInts) { bst.insert(element); }
         resultArrayList = bst.getPreOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
+        emptyBST.getInOrder();  // ensure an empty tree doesn't break things
         assertEquals(preOrderInts, resultArray);
     }
 
@@ -45,12 +49,14 @@ public class BSTTest {
     public void getPostOrder() {
         ArrayList<Integer> resultArrayList;
         Integer[] resultArray;
+        BST<Integer> emptyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
         for (Integer element : unorderedInts) { bst.insert(element); }
         resultArrayList = bst.getPostOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
+        emptyBST.getInOrder();  // ensure an empty tree doesn't break things
         assertEquals(postOrderInts, resultArray);
     }
 
@@ -143,29 +149,35 @@ public class BSTTest {
         for (Integer element: extendedUnorderedInts) { bst.insert(element); }
         ArrayList<Integer> answer = new ArrayList<Integer>(Arrays.asList(extendedInOrderInts));
         ArrayList<Integer> result;
+        boolean deleted;
 
         // verify that deleting a non-existing node doesn't break anything
-        bst.delete(27);
+        deleted = bst.delete(27);
+        assertFalse(deleted);
 
-        bst.delete(9);
+        deleted = bst.delete(9);
         answer.remove(new Integer(9));
         result = bst.getInOrder();
         assertEquals(result, answer);
+        assertTrue(deleted);
 
-        bst.delete(10);
+        deleted = bst.delete(10);
         answer.remove(new Integer(10));
         result = bst.getInOrder();
         assertEquals(result, answer);
+        assertTrue(deleted);
 
-        bst.delete(2);
+        deleted = bst.delete(2);
         answer.remove(new Integer(2));
         result = bst.getInOrder();
         assertEquals(result, answer);
+        assertTrue(deleted);
 
-        bst.delete(4);
+        deleted = bst.delete(4);
         answer.remove(new Integer(4));
         result = bst.getInOrder();
         assertEquals(result, answer);
+        assertTrue(deleted);
 
         // delete the rest of the nodes and attempt to find a maximum
         for (Integer element : answer)

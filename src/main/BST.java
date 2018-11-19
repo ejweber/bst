@@ -52,6 +52,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     }
 
     private void inOrder(Node<T> subroot) {
+        if (subroot == null) { return; }
         if (subroot.getLChild() != null)
             inOrder(subroot.getLChild());
         list.add(subroot.getData());
@@ -66,6 +67,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     }
 
     private void preOrder(Node<T> subroot) {
+        if (subroot == null) { return; }
         list.add(subroot.getData());
         if (subroot.getLChild() != null)
             preOrder(subroot.getLChild());
@@ -80,6 +82,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     }
 
     private void postOrder(Node<T> subroot) {
+        if (subroot == null) { return; }
         if (subroot.getLChild() != null)
             postOrder(subroot.getLChild());
         if (subroot.getRChild() != null)
@@ -185,10 +188,10 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
             newNode.setParent(oldNode.getParent());
     }
 
-    void delete(T data) {
+    boolean delete(T data) {
         Node<T> target = findNode(data);
         if (target == null)
-            return;
+            return false;
         // if target has no left child, its right child can simply replace it
         if (target.getLChild() == null)
             transplant(target, target.getRChild());
@@ -208,5 +211,10 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
             rightMin.setLChild(target.getLChild());
             rightMin.getLChild().setParent(rightMin);
         }
+        return true;
+    }
+
+    void clearTree() {
+        root = null;  // the garbage collector will take care of the rest
     }
 }
