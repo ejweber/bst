@@ -5,14 +5,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Assignment {
-    private BST<Integer> bst;
-
     public static void main(String[] args) {
         int selection = -1;
         BST<Integer> bst = new BST<Integer>();
 
         while (selection != 0) {
-            selection = getMenuSelection(bst);
+            selection = getMenuSelection();
             switch (selection) {
                 case 1: insert(bst); break;
                 case 2: delete(bst); break;
@@ -27,7 +25,7 @@ public class Assignment {
         }
     }
 
-    private static int getMenuSelection(BST<Integer> bst) {
+    private static int getMenuSelection() {
         String menu;
         menu = "\nPress a number key corresponding to one of the selections below:\n" +
                 "  (1) Insert a key\n" +
