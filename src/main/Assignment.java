@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * An command line interface that allows a user to interact with an initially empty binary search tree.
+ *
+ * @author Eric Weber
+ * @version 0.1
+ * @since 11/31/18
+ */
+
 public class Assignment {
     public static void main(String[] args) {
         int selection = -1;
@@ -23,7 +31,7 @@ public class Assignment {
                 case 9: clear(bst); break;
             }
         }
-    }
+    } 
 
     private static int getMenuSelection() {
         String menu;
