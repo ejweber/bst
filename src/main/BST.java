@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @since 11/31/18
  */
 
-public class BST<T extends Comparable<? super T>> {  // stole ? super T from StackOverflow
+class BST<T extends Comparable<? super T>> {  // stole ? super T from StackOverflow
     private Node<T> root;
     private ArrayList<T> list;
 
@@ -18,7 +18,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
     BST() { root = null; }
 
     // constructor with data to use in root node
-    public BST(T rootData) { root = new Node<T>(rootData); }
+    BST(T rootData) { root = new Node<T>(rootData); }
 
     void insert(T data) {
         Node<T> node = new Node<T>(data);
@@ -90,6 +90,7 @@ public class BST<T extends Comparable<? super T>> {  // stole ? super T from Sta
         list.add(subroot.getData());
     }
 
+    // returns -1 if not found
     int find(T data) {
         return recursiveFind(root, data, 0);
     }

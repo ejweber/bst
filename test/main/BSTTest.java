@@ -22,7 +22,9 @@ public class BSTTest {
         BST<Integer> emtpyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         resultArrayList = bst.getInOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
@@ -37,7 +39,9 @@ public class BSTTest {
         BST<Integer> emptyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         resultArrayList = bst.getPreOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
@@ -52,7 +56,9 @@ public class BSTTest {
         BST<Integer> emptyBST = new BST<Integer>();
 
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         resultArrayList = bst.getPostOrder();
         resultArray = resultArrayList.toArray(new Integer[0]);
 
@@ -63,7 +69,9 @@ public class BSTTest {
     @Test
     public void find() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         BST<Integer> emtpyBST = new BST<Integer>();
 
         assertEquals(0, bst.find(5));
@@ -78,7 +86,9 @@ public class BSTTest {
     @Test
     public void getMinimum() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         BST<Integer> emtpyBST = new BST<Integer>();
 
         int minValue = bst.getMinimum();
@@ -92,7 +102,9 @@ public class BSTTest {
     @Test
     public void getMaximum() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         BST<Integer> emtpyBST = new BST<Integer>();
 
         int maxValue = bst.getMaximum();
@@ -106,18 +118,20 @@ public class BSTTest {
     @Test
     public void getSuccessor() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         BST<Integer> emtpyBST = new BST<Integer>();
 
-        assertEquals(1, (int)bst.getSuccessor(0));
-        assertEquals(2, (int)bst.getSuccessor(1));
-        assertEquals(3, (int)bst.getSuccessor(2));
-        assertEquals(4, (int)bst.getSuccessor(3));
-        assertEquals(5, (int)bst.getSuccessor(4));
-        assertEquals(6, (int)bst.getSuccessor(5));
-        assertEquals(7, (int)bst.getSuccessor(6));
-        assertEquals(8, (int)bst.getSuccessor(7));
-        assertEquals(9, (int)bst.getSuccessor(8));
+        assertEquals(1, (int) bst.getSuccessor(0));
+        assertEquals(2, (int) bst.getSuccessor(1));
+        assertEquals(3, (int) bst.getSuccessor(2));
+        assertEquals(4, (int) bst.getSuccessor(3));
+        assertEquals(5, (int) bst.getSuccessor(4));
+        assertEquals(6, (int) bst.getSuccessor(5));
+        assertEquals(7, (int) bst.getSuccessor(6));
+        assertEquals(8, (int) bst.getSuccessor(7));
+        assertEquals(9, (int) bst.getSuccessor(8));
         assertNull(bst.getSuccessor(9));
         assertNull(bst.getSuccessor(10));
         assertNull(emtpyBST.getSuccessor(5));
@@ -126,18 +140,20 @@ public class BSTTest {
     @Test
     public void getPredecessor() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element : unorderedInts) { bst.insert(element); }
+        for (Integer element : unorderedInts) {
+            bst.insert(element);
+        }
         BST<Integer> emtpyBST = new BST<Integer>();
 
-        assertEquals(0, (int)bst.getPredecessor(1));
-        assertEquals(1, (int)bst.getPredecessor(2));
-        assertEquals(2, (int)bst.getPredecessor(3));
-        assertEquals(3, (int)bst.getPredecessor(4));
-        assertEquals(4, (int)bst.getPredecessor(5));
-        assertEquals(5, (int)bst.getPredecessor(6));
-        assertEquals(6, (int)bst.getPredecessor(7));
-        assertEquals(7, (int)bst.getPredecessor(8));
-        assertEquals(8, (int)bst.getPredecessor(9));
+        assertEquals(0, (int) bst.getPredecessor(1));
+        assertEquals(1, (int) bst.getPredecessor(2));
+        assertEquals(2, (int) bst.getPredecessor(3));
+        assertEquals(3, (int) bst.getPredecessor(4));
+        assertEquals(4, (int) bst.getPredecessor(5));
+        assertEquals(5, (int) bst.getPredecessor(6));
+        assertEquals(6, (int) bst.getPredecessor(7));
+        assertEquals(7, (int) bst.getPredecessor(8));
+        assertEquals(8, (int) bst.getPredecessor(9));
         assertNull(bst.getPredecessor(0));
         assertNull(bst.getPredecessor(10));
         assertNull(emtpyBST.getPredecessor(5));
@@ -146,7 +162,9 @@ public class BSTTest {
     @Test
     public void delete() {
         BST<Integer> bst = new BST<Integer>();
-        for (Integer element: extendedUnorderedInts) { bst.insert(element); }
+        for (Integer element : extendedUnorderedInts) {
+            bst.insert(element);
+        }
         ArrayList<Integer> answer = new ArrayList<Integer>(Arrays.asList(extendedInOrderInts));
         ArrayList<Integer> result;
         boolean deleted;
@@ -184,5 +202,26 @@ public class BSTTest {
             bst.delete(element);
         assertNull(bst.getMaximum());
 
+    }
+
+    @Test
+    public void nonDefaultConstructor() {
+        BST<Integer> bst = new BST<Integer>(5);
+        bst.insert(7);
+
+        assertEquals(bst.find(5), 0);
+        assertEquals(bst.find(7), 1);
+        assertEquals(bst.find(12), -1);
+    }
+
+    @Test
+    public void clearTree() {
+        BST<Integer> bst = new BST<Integer>();
+        for (Integer element : unorderedInts) { bst.insert(element); }
+        bst.clearTree();
+
+        for (Integer element : unorderedInts) {
+            assertEquals(bst.find(element), -1);
+        }
     }
 }
