@@ -11,4 +11,4 @@ To compile and run the code:
 	Type "java main.Assignment"
 	
 Following the instructions above drops the user into an command line interface through which he can 
-interact with the tree.
+interact with an initially empty tree.
