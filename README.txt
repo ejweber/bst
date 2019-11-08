@@ -7,7 +7,7 @@ To compile and run the code:
 	Unzip bst.zip.
 	Navigate to the top level directory (<path>/bst/) where makefile, src/, and test/ should exist.
 	Type "make".
-	The java compiler should create a new main/ director with .class files inside of it.
+	The java compiler should create a new main/ directory with .class files inside of it.
 	Type "java main.Assignment".
 	
 Following the instructions above drops the user into an command line interface through which he can 
